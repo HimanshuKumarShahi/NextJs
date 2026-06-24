@@ -1,39 +1,43 @@
-export default function RootLayout({
+import React from 'react';
+import Link from 'next/link';
+
+export default function SimpleHomeLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <>
-      <nav className="bg-white shadow-sm border-b border-gray-100 py-4 px-8 flex justify-between items-center sticky top-0 z-50">
-        <div className="text-2xl font-black text-indigo-600 tracking-tighter">
-          Home<span className="text-gray-900">Page</span>
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
+      {/* Minimal Navbar */}
+      <header className="border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-xl font-bold tracking-tight">
+            NexusTech.
+          </div>
+          <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+            <Link href="#features" className="hover:text-black transition">Features</Link>
+            <Link href="#products" className="hover:text-black transition">Products</Link>
+          </nav>
+          <Link 
+            href="/login" 
+            className="text-sm font-semibold bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
+          >
+            Log in
+          </Link>
         </div>
-        <div className="hidden md:flex space-x-8 font-medium">
-          <a
-            href="#software"
-            className="text-gray-600 hover:text-indigo-600 transition"
-          >
-            Software
-          </a>
-          <a
-            href="#gadgets"
-            className="text-gray-600 hover:text-indigo-600 transition"
-          >
-            Gear
-          </a>
-          <a
-            href="#pricing"
-            className="text-gray-600 hover:text-indigo-600 transition"
-          >
-            Pricing
-          </a>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-grow flex flex-col">
+        {children}
+      </main>
+
+      {/* Minimal Footer */}
+      <footer className="border-t border-gray-100 mt-auto">
+        <div className="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-gray-500">
+          <p>&copy; 2026 NexusTech. All rights reserved.</p>
         </div>
-        <button className="bg-gray-900 text-white px-5 py-2 rounded-lg font-medium hover:bg-gray-800 transition">
-          Login
-        </button>
-      </nav>
-      {children}
-    </>
+      </footer>
+    </div>
   );
 }
