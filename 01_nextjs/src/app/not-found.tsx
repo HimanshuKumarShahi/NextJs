@@ -9,7 +9,7 @@ export default function NotFound() {
 
       <div className="text-center z-10 w-full max-w-lg">
        
-        <h1 className="text-8xl md:text-[150px] font-black text-gray-600 tracking-tighter select-none mb-4 md:mb-0">
+        <h1 className="text-8xl md:text-[150px] font-black text-gray-400 tracking-tighter select-none mb-4 md:mb-0">
           404
         </h1>
 
