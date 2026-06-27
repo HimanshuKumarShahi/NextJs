@@ -1,24 +1,47 @@
-import SearchForm from "@/components/shared/SearchForm";
+"use client";
+import { useState } from "react";
+import SearchTrain from "@/components/SearchTrain";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchTrainDetails = async (trainNo: string) => {
+    setLoading(true);
+    try {
+      // Yeh humari wahi API hai jo MongoDB se data la rahi hai
+      const res = await fetch(`/api/trains?query=${trainNo}`);
+      const result = await res.json();
+      if (result.success) {
+        setData(result.data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=2000')] bg-cover bg-center">
-      
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
-      
-      {/* Content */}
-      <div className="z-10 w-full px-4 flex flex-col items-center gap-8">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight text-center">
-          RailVerse <span className="text-blue-500">.</span>
-        </h1>
-        <p className="text-zinc-300 text-lg md:text-xl text-center max-w-2xl">
-          Lightning-fast train discovery, real-time availability, and smart alternate routing—all in one place.
-        </p>
-        
-        <div className="w-full mt-8">
-          <SearchForm />
-        </div>
-      </div>
+    <main className="p-10">
+      <h1 className="text-center text-4xl font-bold">RailVerse</h1>
+      <SearchTrain onSearch={fetchTrainDetails} />
+
+      {loading && <p className="text-center mt-5">Loading...</p>}
+
+      {data && (
+        <Card className="mt-10 max-w-lg mx-auto">
+          <CardHeader>
+            <CardTitle>{data.trainName} ({data.trainNumber})</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p><strong>Source:</strong> {data.source}</p>
+            <p><strong>Destination:</strong> {data.destination}</p>
+            {/* Yahan baad mein Routes aur Live Status add karenge */}
+          </CardContent>
+        </Card>
+      )}
     </main>
   );
 }
