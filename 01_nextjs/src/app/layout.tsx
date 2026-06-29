@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,18 +27,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html
-        lang="en" 
-        className={cn(",", "dark:bg-black", "dark:text-white", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
-      >
-        <body className="min-h-full flex flex-col">
-          <div className="relative w-full flex items-center justify-center">
-            <Navbar />
-          </div>
-          {children}
-        </body>
-      </html>
-    </>
+    <html
+      lang="en"
+      className={cn("dark", "dark:bg-black", "dark:text-white", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+    >
+      <body className="min-h-full flex flex-col bg-black text-white">
+        <div className="relative w-full flex items-center justify-center">
+          <Navbar />
+        </div>
+        {children}
+      </body>
+    </html>
   );
 }
