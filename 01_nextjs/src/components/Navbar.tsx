@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
+import { HoveredLink, Menu, MenuItem, } from "./ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -47,6 +47,12 @@ function Navbar({ className }: { className?: string }) {
             active={active}
             item="Contact Us"
           >
+            <div className="flex flex-col space-y-4 text-">
+              <HoveredLink href="/courses">Email </HoveredLink>
+              <HoveredLink href="/courses">Instagram </HoveredLink>
+              <HoveredLink href="/courses">LinkedIn </HoveredLink>
+              <HoveredLink href="/courses">X </HoveredLink>
+            </div>
             
           </MenuItem>
         </Link>
