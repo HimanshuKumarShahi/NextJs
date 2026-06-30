@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Spotlight } from "@/components/ui/Spotlight";
+import { Button } from "@/components/ui/moving-border";
 
 function HeroScetion() {
   return (
@@ -20,12 +21,14 @@ function HeroScetion() {
           skills, join us to unlock your true potential.
         </p>
 
-      
         <div className="mt-8">
           <Link href={"/courses"}>
-            <button className="bg-white text-black border border-neutral-200 rounded-full px-8 py-3 font-semibold hover:bg-neutral-200 transition duration-200">
+            <Button
+              borderRadius="1.75rem"
+              className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-900"
+            >
               Explore Courses
-            </button>
+            </Button>
           </Link>
         </div>
       </div>
