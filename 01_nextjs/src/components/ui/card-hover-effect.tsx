@@ -12,6 +12,8 @@ export const HoverEffect = ({
     description: string;
     link: string;
     image: string;
+    price: number;      
+    instructor: string;
   }[];
   className?: string;
 }) => {
@@ -54,11 +56,24 @@ export const HoverEffect = ({
               <img
                 src={item.image}
                 alt={item.title}
+                loading="lazy"
                 className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
               />
             </div>
+            
+        
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
+            
+            
+            <div className="mt-6 flex justify-between items-center">
+              <span className="text-xs text-neutral-400 font-medium">
+                By {item.instructor}
+              </span>
+              <span className="text-sm font-bold text-white bg-neutral-800 border border-neutral-700 px-3 py-1 rounded-full">
+                ₹{item.price}
+              </span>
+            </div>
           </Card>
         </Link>
       ))}
