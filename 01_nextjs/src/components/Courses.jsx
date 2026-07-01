@@ -13,6 +13,8 @@ export default function Courses() {
     description: course.description,
     link: `/courses/${course.slug}`,
     image: course.image,
+    price: course.price,            
+    instructor: course.instructor,
   }));
 
 
