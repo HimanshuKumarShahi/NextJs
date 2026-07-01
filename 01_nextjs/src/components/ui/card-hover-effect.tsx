@@ -12,6 +12,8 @@ export const HoverEffect = ({
     description: string;
     link: string;
     image: string;
+    price: number;
+    instructor: string;
   }[];
   className?: string;
 }) => {
@@ -54,11 +56,46 @@ export const HoverEffect = ({
               <img
                 src={item.image}
                 alt={item.title}
+                loading="lazy"
                 className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
               />
             </div>
+
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
+
+            <div className="mt-5 flex justify-between items-center">
+              <span className="text-sm text-white font-medium">
+                By {item.instructor}
+              </span>
+              <span className="text-sm font-bold text-white bg-grey-900 border border-white px-10 py-3 rounded-sm">
+                ₹{item.price}
+              </span>
+            </div>
+
+            <div className="mt-4 w-full">
+              <div className="relative z-10 w-full px-4 py-2.5 bg-white dark:bg-white text-black text-center font-bold rounded-lg overflow-hidden group/btn transition-transform duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.1)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-200 to-green-600 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-500 ease-out" />
+
+                <span className="relative z-20 flex items-center justify-center gap-2 text-sm">
+                  Enroll Now
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2.5}
+                    stroke="currentColor"
+                    className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
           </Card>
         </Link>
       ))}

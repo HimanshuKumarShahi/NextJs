@@ -16,22 +16,23 @@ function Navbar({ className }: { className?: string }) {
         <Link href={"/"}>
           <MenuItem setActive={setActive} active={active} item="Home" />
         </Link>
+
         <MenuItem setActive={setActive} active={active} item="Courses">
-          <div className="flex flex-col space-y-4 text-">
-            <HoveredLink href="/courses">All Courses </HoveredLink>
-            <HoveredLink href="/courses">Web Development </HoveredLink>
-            <HoveredLink href="/courses">Advance Composition </HoveredLink>
-            <HoveredLink href="/courses"> Blog Writing </HoveredLink>
-            <HoveredLink href="/courses">Production </HoveredLink>
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/courses">All Courses</HoveredLink>
+            <HoveredLink href="/courses">Web Development</HoveredLink>
+            <HoveredLink href="/courses">Advance Composition</HoveredLink>
+            <HoveredLink href="/courses">Blog Writing</HoveredLink>
+            <HoveredLink href="/courses">Production</HoveredLink>
           </div>
         </MenuItem>
 
         <MenuItem setActive={setActive} active={active} item="Contact Us">
-          <div className="flex flex-col space-y-4 text-">
-            <HoveredLink href="/contact">Email </HoveredLink>
-            <HoveredLink href="/contact">Instagram </HoveredLink>
-            <HoveredLink href="/contact">LinkedIn </HoveredLink>
-            <HoveredLink href="/contact">X </HoveredLink>
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/contact">Email</HoveredLink>
+            <HoveredLink href="/contact">Instagram</HoveredLink>
+            <HoveredLink href="/contact">LinkedIn</HoveredLink>
+            <HoveredLink href="/contact">X</HoveredLink>
           </div>
         </MenuItem>
       </Menu>

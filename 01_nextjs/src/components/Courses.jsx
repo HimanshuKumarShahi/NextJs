@@ -13,6 +13,8 @@ export default function Courses() {
     description: course.description,
     link: `/courses/${course.slug}`,
     image: course.image,
+    price: course.price,            
+    instructor: course.instructor,
   }));
 
 
@@ -76,15 +78,37 @@ export default function Courses() {
           <div className="w-8 h-8 border-4 border-neutral-400 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : (
-       <div className="mt-8 flex flex-row justify-center">
-          <Link href={"/courses"}>
-            <Button
-              borderRadius="1.75rem"
-              className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-900"
-            >
-              Contact Us
-            </Button>
-          </Link>
+        <div className="mt-20 pb-10 flex flex-col items-center justify-center text-center px-4">
+          
+        
+          <h3 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500 mb-4 tracking-tight">
+            You've explored all courses! 🎉
+          </h3>
+          <p className="text-neutral-400 max-w-md mb-8 text-sm md:text-base">
+            Didn't find what you were looking for? Let us know what you want to learn next or head back to the dashboard.
+          </p>
+          
+          
+          <div className="flex flex-col sm:flex-row gap-6 items-center">
+            
+            
+            <Link href="/contact">
+              <Button
+                borderRadius="1.75rem"
+                className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 font-semibold px-8"
+              >
+                Contact Us
+              </Button>
+            </Link>
+
+            
+            <Link href="/">
+              <button className="px-8 py-3 rounded-full border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-400 hover:bg-neutral-800/50 transition-all duration-300 font-medium">
+                Back to Home
+              </button>
+            </Link>
+            
+          </div>
         </div>
       )}
 
