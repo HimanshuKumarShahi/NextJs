@@ -64,11 +64,11 @@ export const HoverEffect = ({
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
 
-            <div className="mt-6 flex justify-between items-center">
-              <span className="text-xs text-neutral-400 font-medium">
+            <div className="mt-5 flex justify-between items-center">
+              <span className="text-sm text-white font-medium">
                 By {item.instructor}
               </span>
-              <span className="text-sm font-bold text-white bg-neutral-800 border border-neutral-700 px-3 py-1 rounded-full">
+              <span className="text-sm font-bold text-white bg-grey-900 border border-white px-10 py-3 rounded-sm">
                 ₹{item.price}
               </span>
             </div>
