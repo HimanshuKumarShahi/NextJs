@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import { motion } from "motion/react";
 import Link from "next/link";
 
