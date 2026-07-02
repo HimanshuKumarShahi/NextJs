@@ -1,7 +1,8 @@
 import HeroSection from "@/components/HeroScetion";
 import Courses from "@/components/Courses";
 import ContactPage from "@/components/Contact";
-import StickyRoller from  "@/components/Sticky"
+import StickyRoller from  "@/components/Sticky";
+import InfiniteCard from "@/components/inifiniteCard"
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSection />
       <Courses />
       <StickyRoller />
+      <InfiniteCard />
       <ContactPage />
     </main>
   );
