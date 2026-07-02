@@ -4,7 +4,6 @@ import coursesData from "@/data/music_courses.json";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 
-
 interface Course {
   id: number;
   title: string;
