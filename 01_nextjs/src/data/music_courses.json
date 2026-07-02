@@ -79,8 +79,126 @@
       "instructor": "Anna B.",
       "isFeatured": false,
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
+    },
+    {
+      "id": 9,
+      "title": "Mobile App Development",
+      "slug": "mobile-dev-expo",
+      "description": "Build with React Native.",
+      "price": 279.0,
+      "instructor": "Navin R.",
+      "isFeatured": true,
+      "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c"
+    },
+    {
+      "id": 10,
+      "title": "AI Agent Development",
+      "slug": "ai-agent-dev",
+      "description": "Build LLM-powered agents.",
+      "price": 399.0,
+      "instructor": "Himanshu S.",
+      "isFeatured": true,
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995"
+    },
+    {
+      "id": 11,
+      "title": "Yoga for Beginners",
+      "slug": "yoga-basics",
+      "description": "Start your wellness journey.",
+      "price": 29.0,
+      "instructor": "Elena P.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b"
+    },
+    {
+      "id": 12,
+      "title": "Photography Basics",
+      "slug": "photo-basics",
+      "description": "Master your camera settings.",
+      "price": 89.0,
+      "instructor": "David L.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1542038784456-1ea8e935640e"
+    },
+    {
+      "id": 13,
+      "title": "Cooking Italian Cuisine",
+      "slug": "italian-cooking",
+      "description": "Authentic pasta and pizza.",
+      "price": 59.0,
+      "instructor": "Marco G.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591"
+    },
+    {
+      "id": 14,
+      "title": "Public Speaking",
+      "slug": "public-speaking",
+      "description": "Speak with confidence.",
+      "price": 79.0,
+      "instructor": "Emma W.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1475721027785-f749f8752c59"
+    },
+    {
+      "id": 15,
+      "title": "Cybersecurity Basics",
+      "slug": "cyber-sec",
+      "description": "Stay safe online.",
+      "price": 219.0,
+      "instructor": "Paul K.",
+      "isFeatured": true,
+      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b"
+    },
+    {
+      "id": 16,
+      "title": "Baking Pastries",
+      "slug": "baking-master",
+      "description": "Croissants and tarts.",
+      "price": 69.0,
+      "instructor": "Julie R.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff"
+    },
+    {
+      "id": 17,
+      "title": "Game Design Unity",
+      "slug": "unity-game-design",
+      "description": "Create your first 3D game.",
+      "price": 299.0,
+      "instructor": "Tom H.",
+      "isFeatured": true,
+      "image": "https://images.unsplash.com/photo-1556438064-2d7646166914"
+    },
+    {
+      "id": 18,
+      "title": "Content Writing",
+      "slug": "content-writing",
+      "description": "Write compelling copy.",
+      "price": 55.0,
+      "instructor": "Kate M.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a"
+    },
+    {
+      "id": 19,
+      "title": "Machine Learning",
+      "slug": "ml-bootcamp",
+      "description": "Build predictive models.",
+      "price": 449.0,
+      "instructor": "Andrew N.",
+      "isFeatured": true,
+      "image": "https://images.unsplash.com/photo-1555949963-aa9fe0c977b8"
+    },
+    {
+      "id": 20,
+      "title": "Minimalist Lifestyle",
+      "slug": "minimalism",
+      "description": "Simplify your life.",
+      "price": 35.0,
+      "instructor": "Leo B.",
+      "isFeatured": false,
+      "image": "https://images.unsplash.com/photo-1484101403633-562f858dc8a6"
     }
   ]
 }
-
-
