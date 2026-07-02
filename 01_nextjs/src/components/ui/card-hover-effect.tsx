@@ -69,7 +69,7 @@ export const HoverEffect = ({
                 By {item.instructor}
               </span>
               <span className="text-sm font-bold text-white bg-grey-900 border border-white px-10 py-3 rounded-sm">
-                ₹{item.price}
+                $ {item.price}
               </span>
             </div>
 
