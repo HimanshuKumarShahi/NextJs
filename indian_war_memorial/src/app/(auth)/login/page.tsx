@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
@@ -53,325 +53,170 @@ export default function LoginPage() {
 
   if (status === 'loading') {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ backgroundColor: '#0B1006' }}
-      >
+      <div className="min-h-screen flex items-center justify-center bg-[#070B04]">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-10 h-10 rounded-full border-2"
-          style={{ borderColor: '#C49F47', borderTopColor: 'transparent' }}
+          className="w-10 h-10 rounded-full border-2 border-[#C49F47] border-t-transparent"
         />
       </div>
     );
   }
 
   return (
-    <main
-      className="min-h-screen flex items-center justify-center px-4 py-12 relative overflow-hidden"
-      style={{ backgroundColor: '#0B1006' }}
-    >
-      {/* Background dot pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #C49F47 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
+    <main className="min-h-screen flex items-center justify-center px-4 py-12 relative overflow-hidden bg-[#070B04]">
+      {/* Background patterns */}
+      <div className="absolute inset-0 bg-dot-olive opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-white opacity-5 pointer-events-none" />
 
-      {/* Ambient glow top-left */}
-      <div
-        className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 pointer-events-none"
-        style={{ backgroundColor: '#3E512B', transform: 'translate(-30%, -30%)' }}
-      />
-      {/* Ambient glow bottom-right */}
-      <div
-        className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 pointer-events-none"
-        style={{ backgroundColor: '#5A753F', transform: 'translate(30%, 30%)' }}
-      />
+      {/* Ambient glows */}
+      <div className="absolute top-0 left-0 w-[450px] h-[450px] rounded-full blur-[100px] opacity-10 bg-[#455F2F] pointer-events-none -translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full blur-[100px] opacity-10 bg-[#C49F47] pointer-events-none translate-x-1/3 translate-y-1/3" />
 
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.97 }}
+        initial={{ opacity: 0, y: 30, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full max-w-md relative z-10"
       >
-        <div
-          className="rounded-2xl overflow-hidden shadow-2xl"
-          style={{
-            backgroundColor: 'rgba(19,26,15,0.88)',
-            backdropFilter: 'blur(24px)',
-            border: '1px solid rgba(90,117,63,0.35)',
-            boxShadow:
-              '0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(196,159,71,0.08)',
-          }}
-        >
-          {/* Indian Tricolor Stripe */}
-          <div className="flex h-[6px] w-full">
-            <div className="flex-1" style={{ backgroundColor: '#FF9933' }} />
-            <div className="flex-1" style={{ backgroundColor: '#FFFFFF' }} />
-            <div className="flex-1" style={{ backgroundColor: '#138808' }} />
+        <div className="rounded-2xl overflow-hidden bg-[#0E140B]/90 border border-[#324322]/80 shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl">
+          
+          {/* Saffron, White, Green Tricolor Line */}
+          <div className="flex h-1 w-full">
+            <div className="flex-1 bg-[#FF9933]" />
+            <div className="flex-1 bg-[#FFFFFF]" />
+            <div className="flex-1 bg-[#138808]" />
           </div>
 
-          <div className="px-8 pt-8 pb-10">
-            {/* Logo + Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
-              className="flex flex-col items-center mb-8"
-            >
-              <div
-                className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
-                style={{
-                  background: 'linear-gradient(135deg, #3E512B 0%, #5A753F 100%)',
-                  boxShadow: '0 0 28px rgba(90,117,63,0.45)',
-                }}
-              >
-                <Shield className="w-8 h-8" style={{ color: '#C49F47' }} />
+          <div className="px-8 pt-10 pb-8">
+            
+            {/* Header */}
+            <div className="flex flex-col items-center mb-8 text-center">
+              <div className="relative mb-4">
+                <div className="w-14 h-14 rounded-full bg-[#324322]/80 border border-[#C49F47]/30 flex items-center justify-center shadow-lg">
+                  <Shield className="w-6 h-6 text-[#C49F47]" />
+                </div>
+                <div className="absolute inset-0 rounded-full bg-[#C49F47] blur-md opacity-25" />
               </div>
 
-              <h1
-                className="text-2xl font-bold tracking-wide text-center mb-1"
-                style={{ color: '#E8D5A3', fontFamily: 'Georgia, serif' }}
-              >
-                Indian War Memorial
+              <h1 className="text-xl font-bold tracking-wide text-white font-serif uppercase">
+                War Memorial Console
               </h1>
-              <p className="text-sm text-center mb-5" style={{ color: '#7A9A5E' }}>
-                Honoring the brave souls of our nation
+              <p className="text-xs text-[#C49F47] mt-1 uppercase tracking-widest font-mono font-bold">
+                Duty • Honor • Country
               </p>
-
-              {/* Military Quote */}
-              <div
-                className="w-full px-4 py-3 rounded-lg"
-                style={{
-                  backgroundColor: 'rgba(62,81,43,0.28)',
-                  borderLeft: '3px solid #C49F47',
-                }}
-              >
-                <p className="text-xs italic text-center" style={{ color: '#C49F47' }}>
-                  &ldquo;Those who dare, win&rdquo;
-                </p>
-                <p className="text-xs text-center mt-0.5" style={{ color: '#5A753F' }}>
-                  — Special Air Service Motto
-                </p>
-              </div>
-            </motion.div>
+            </div>
 
             {/* Form */}
-            <motion.form
-              onSubmit={handleSubmit}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.28, duration: 0.5 }}
-              className="space-y-5"
-            >
+            <form onSubmit={handleSubmit} className="space-y-5">
+              
               {/* Email */}
-              <div className="space-y-1.5">
-                <label
-                  className="text-xs font-semibold tracking-widest uppercase block"
-                  style={{ color: '#7A9A5E' }}
-                >
-                  Email Address
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold tracking-widest uppercase block text-gray-400">
+                  Officer Credential (Email)
                 </label>
                 <div className="relative">
-                  <Mail
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-                    style={{ color: '#5A753F' }}
-                  />
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    autoComplete="email"
                     placeholder="officer@memorial.in"
-                    className="w-full pl-10 pr-4 py-3 rounded-lg text-sm outline-none transition-all duration-200"
-                    style={{
-                      backgroundColor: 'rgba(11,16,6,0.75)',
-                      border: '1px solid rgba(90,117,63,0.4)',
-                      color: '#D4C5A0',
-                      caretColor: '#C49F47',
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#C49F47';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(196,159,71,0.12)';
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(90,117,63,0.4)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl text-xs font-semibold bg-[#070B04] border border-[#324322]/60 text-white placeholder-gray-600 focus:outline-none focus:border-[#C49F47] focus:ring-1 focus:ring-[#C49F47] transition-all duration-200"
                   />
                 </div>
               </div>
 
               {/* Password */}
-              <div className="space-y-1.5">
-                <label
-                  className="text-xs font-semibold tracking-widest uppercase block"
-                  style={{ color: '#7A9A5E' }}
-                >
-                  Password
-                </label>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-[10px] font-bold tracking-widest uppercase block text-gray-400">
+                    Access Cipher (Password)
+                  </label>
+                  <Link
+                    href="/forgot-password"
+                    className="text-[10px] hover:underline text-[#C49F47] font-semibold"
+                  >
+                    Forgot?
+                  </Link>
+                </div>
                 <div className="relative">
-                  <Lock
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-                    style={{ color: '#5A753F' }}
-                  />
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    autoComplete="current-password"
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-11 py-3 rounded-lg text-sm outline-none transition-all duration-200"
-                    style={{
-                      backgroundColor: 'rgba(11,16,6,0.75)',
-                      border: '1px solid rgba(90,117,63,0.4)',
-                      color: '#D4C5A0',
-                      caretColor: '#C49F47',
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#C49F47';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(196,159,71,0.12)';
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(90,117,63,0.4)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
+                    className="w-full pl-10 pr-10 py-3 rounded-xl text-xs font-semibold bg-[#070B04] border border-[#324322]/60 text-white placeholder-gray-600 focus:outline-none focus:border-[#C49F47] focus:ring-1 focus:ring-[#C49F47] transition-all duration-200"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors duration-150"
-                    style={{ color: '#5A753F' }}
-                    tabIndex={-1}
-                    aria-label="Toggle password visibility"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
                   >
-                    {showPassword ? (
-                      <EyeOff className="w-4 h-4" />
-                    ) : (
-                      <Eye className="w-4 h-4" />
-                    )}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              {/* Error Message */}
+              {/* Error messages */}
               <AnimatePresence>
                 {error && (
                   <motion.div
-                    key="error"
-                    initial={{ opacity: 0, y: -8, height: 0 }}
-                    animate={{ opacity: 1, y: 0, height: 'auto' }}
-                    exit={{ opacity: 0, y: -8, height: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="flex items-start gap-2.5 px-3 py-2.5 rounded-lg overflow-hidden"
-                    style={{
-                      backgroundColor: 'rgba(239,68,68,0.1)',
-                      border: '1px solid rgba(239,68,68,0.3)',
-                    }}
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400"
                   >
-                    <AlertCircle
-                      className="w-4 h-4 mt-0.5 shrink-0"
-                      style={{ color: '#EF4444' }}
-                    />
-                    <p className="text-xs leading-relaxed" style={{ color: '#FCA5A5' }}>
-                      {error}
-                    </p>
+                    <AlertCircle className="w-4.5 h-4.5 shrink-0 mt-0.5" />
+                    <p className="text-[11px] leading-relaxed font-semibold">{error}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Forgot password */}
-              <div className="flex justify-end -mt-1">
-                <Link
-                  href="/forgot-password"
-                  className="text-xs hover:underline transition-colors duration-150"
-                  style={{ color: '#C49F47' }}
-                >
-                  Forgot password?
-                </Link>
-              </div>
-
-              {/* Submit */}
-              <motion.button
+              {/* Submit button */}
+              <button
                 type="submit"
                 disabled={loading}
-                whileHover={{ scale: loading ? 1 : 1.018 }}
-                whileTap={{ scale: loading ? 1 : 0.982 }}
-                className="w-full py-3.5 rounded-lg font-semibold text-sm tracking-widest uppercase flex items-center justify-center gap-2.5 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-1"
-                style={{
-                  background: 'linear-gradient(135deg, #5A753F 0%, #3E512B 100%)',
-                  color: '#E8D5A3',
-                  boxShadow: loading
-                    ? 'none'
-                    : '0 4px 20px rgba(90,117,63,0.38), inset 0 1px 0 rgba(255,255,255,0.08)',
-                }}
+                className="w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#324322] hover:bg-[#40562b] text-white flex items-center justify-center gap-2 border border-[#C49F47]/20 hover:border-[#C49F47]/40 shadow-lg hover:shadow-[#324322]/20 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
-                    <motion.span
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 0.85, repeat: Infinity, ease: 'linear' }}
-                      className="w-4 h-4 rounded-full border-2 inline-block"
-                      style={{
-                        borderColor: '#E8D5A3',
-                        borderTopColor: 'transparent',
-                      }}
-                    />
-                    Authenticating&hellip;
+                    <span className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin inline-block" />
+                    <span>Verifying Credentials...</span>
                   </>
                 ) : (
                   <>
                     <LogIn className="w-4 h-4" />
-                    Sign In
+                    <span>Authorize Access</span>
                   </>
                 )}
-              </motion.button>
-            </motion.form>
+              </button>
+            </form>
 
-            {/* Divider */}
             <div className="flex items-center gap-3 my-6">
-              <div
-                className="flex-1 h-px"
-                style={{ backgroundColor: 'rgba(90,117,63,0.22)' }}
-              />
-              <span className="text-xs" style={{ color: '#3E512B' }}>
-                OR
-              </span>
-              <div
-                className="flex-1 h-px"
-                style={{ backgroundColor: 'rgba(90,117,63,0.22)' }}
-              />
+              <div className="flex-1 h-[1px] bg-[#324322]/40" />
+              <span className="text-[9px] font-mono font-bold text-gray-500 uppercase tracking-widest">CONSOLE REGISTER</span>
+              <div className="flex-1 h-[1px] bg-[#324322]/40" />
             </div>
 
-            {/* Register link */}
-            <p className="text-center text-sm" style={{ color: '#5A6B4A' }}>
+            {/* Register Link */}
+            <p className="text-center text-xs text-gray-400">
               New recruit?{' '}
               <Link
                 href="/register"
-                className="font-semibold hover:underline transition-colors duration-150"
-                style={{ color: '#C49F47' }}
+                className="font-bold text-[#C49F47] hover:underline"
               >
-                Create an account
+                Enlist/Register
               </Link>
             </p>
           </div>
 
-          {/* Footer strip */}
-          <div
-            className="px-8 py-3 text-center text-xs"
-            style={{
-              backgroundColor: 'rgba(11,16,6,0.55)',
-              borderTop: '1px solid rgba(62,81,43,0.22)',
-              color: '#3A4D2A',
-            }}
-          >
-            🇮🇳 Jai Hind &mdash; Indian War Memorial Portal
+          {/* Footer bar */}
+          <div className="px-8 py-3 bg-[#070B04]/70 border-t border-[#324322]/30 text-center text-[10px] text-gray-500 font-mono">
+            🇮🇳 Indian War Memorial Console Portal
           </div>
         </div>
       </motion.div>
