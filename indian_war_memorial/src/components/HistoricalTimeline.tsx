@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 export interface TimelineEvent {
+  id: string;
   year: string;
   title: string;
   description: string;
@@ -13,186 +14,269 @@ export interface TimelineEvent {
   icon?: string;
 }
 
-const wars: TimelineEvent[] = [
+export const WARS: TimelineEvent[] = [
   {
+    id: "kashmir-1947",
     year: "1947",
-    title: "Indo-Pakistani War",
+    title: "Indo-Pakistani War of 1947",
     description:
-      "The first major conflict after Partition. Pakistani tribesman and troops invaded Jammu & Kashmir. Indian forces, airlifted to Srinagar, launched a heroic counter-offensive to protect the nation.",
-    outcome: "Ceasefire. UN Resolution. India retains two-thirds of Kashmir.",
-    casualtiesIndia: "~1,500 soldiers",
+      "Following Partition, Pakistani-backed tribesmen and troops invaded Jammu & Kashmir. Indian soldiers were airlifted to Srinagar at short notice and launched a decisive counter-offensive to protect Kashmir.",
+    outcome: "Ceasefire brokered. UN Line of Control established. India secured 2/3rds of Kashmir including Srinagar Valley, Jammu, and Ladakh.",
+    casualtiesIndia: "~1,500 soldiers martyred",
     color: "#FF9933",
     icon: "🪖",
   },
   {
+    id: "rezang-la-1962",
     year: "1962",
-    title: "Sino-Indian War",
+    title: "Sino-Indian War (Rezang La)",
     description:
-      "China launched a massive offensive across the McMahon Line. Despite being outnumbered and outgunned, Indian soldiers like Major Shaitan Singh and Charlie Company at Rezang La fought to the last man.",
-    outcome: "China declared ceasefire. India lost territory in Aksai Chin.",
-    casualtiesIndia: "~3,000 soldiers",
+      "China launched a massive offensive across the border. At Rezang La in Ladakh, 120 soldiers of 13 Kumaon led by Major Shaitan Singh fought to the last man, last round, inflicting heavy casualties on thousands of Chinese troops.",
+    outcome: "China declared ceasefire. India lost territory in Aksai Chin, but the bravery at Rezang La prevented further incursions.",
+    casualtiesIndia: "~3,000 soldiers martyred",
     color: "#FF6B6B",
     icon: "⚔️",
   },
   {
+    id: "loc-1965",
     year: "1965",
-    title: "Indo-Pakistani War",
+    title: "Indo-Pakistani War of 1965",
     description:
-      "Operation Gibraltar — Pakistan's attempt to infiltrate Kashmir — was repulsed. The Battle of Chawinda saw one of the largest tank battles since WWII. India's Armed Forces fought with exemplary bravery.",
-    outcome: "Tashkent Agreement. Status quo ante bellum.",
-    casualtiesIndia: "~3,000 soldiers",
+      "Pakistan launched Operation Gibraltar to infiltrate Kashmir. Indian forces retaliated, launching counter-attacks across the international border. The Battle of Asal Uttar and the Haji Pir capture demonstrated unmatched military strategy.",
+    outcome: "UN ceasefire. Status quo ante bellum. Tashkent Agreement signed, restoring territories.",
+    casualtiesIndia: "~3,000 soldiers martyred",
     color: "#C49F47",
     icon: "🛡️",
   },
   {
+    id: "dhaka-1971",
     year: "1971",
-    title: "Liberation War & Indo-Pakistani War",
+    title: "Liberation War & Indo-Pak War",
     description:
-      "India's finest military hour. A two-front war that lasted just 13 days. Over 93,000 Pakistani troops surrendered — the largest surrender since WWII. Bangladesh was liberated. A resounding victory.",
-    outcome: "Bangladesh liberated. Shimla Agreement signed.",
-    casualtiesIndia: "~3,800 soldiers",
+      "Fought on two fronts, this war lasted just 13 days and culminated in the liberation of Bangladesh. The Battle of Longewala in the west and the rapid advance to Dhaka in the east forced the surrender of 93,000 Pakistani troops.",
+    outcome: "Resounding Indian Victory. Bangladesh liberated. Shimla Agreement signed.",
+    casualtiesIndia: "~3,844 soldiers martyred",
     color: "#138808",
     icon: "🏆",
   },
   {
+    id: "siachen-1984",
     year: "1984",
-    title: "Operation Blue Star & Operation Meghdoot",
+    title: "Operation Meghdoot (Siachen)",
     description:
-      "Operation Meghdoot secured the Siachen Glacier — the world's highest battlefield. Indian soldiers continue to guard it under extreme conditions to this day.",
-    outcome: "India controls the Siachen Glacier.",
-    casualtiesIndia: "Ongoing operations",
+      "India launched a pre-emptive heliborne operation to secure the Siachen Glacier in Ladakh, beating Pakistan by a few days. Guarding Siachen at 20,000+ feet remains one of the military's most challenging vigils.",
+    outcome: "India established complete control over the Siachen Glacier and all major passes.",
+    casualtiesIndia: "Ongoing high-altitude vigil",
     color: "#5A753F",
     icon: "🏔️",
   },
   {
+    id: "kargil-1999",
     year: "1999",
-    title: "Kargil War",
+    title: "Kargil War (Operation Vijay)",
     description:
-      "Pakistan's clandestine infiltration into Kargil was met with ferocious resistance. Operation Vijay saw Indian soldiers capture peaks at 18,000 ft. Captain Vikram Batra's immortal words 'Yeh Dil Maange More' echoed across India.",
-    outcome: "India recaptured all infiltrated posts. Complete victory.",
-    casualtiesIndia: "527 soldiers",
+      "Pakistan clandestinely occupied high-altitude posts in Kargil. Under direct artillery fire, Indian troops scaled vertical cliffs up to 18,000 feet, recapturing Tiger Hill and Tololing. Captain Vikram Batra and Manoj Pandey became legends.",
+    outcome: "Complete victory. India recaptured all occupied posts. Pakistan withdrew.",
+    casualtiesIndia: "527 soldiers martyred",
     color: "#FF9933",
     icon: "🦁",
   },
 ];
 
-function TimelineCard({ event, index }: { event: TimelineEvent; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+interface HistoricalTimelineProps {
+  activeBattleId?: string;
+  onEventInView?: (eventId: string) => void;
+  isDashboard?: boolean;
+}
+
+function TimelineCard({
+  event,
+  index,
+  isActive,
+  onInView,
+  isDashboard = false,
+}: {
+  event: TimelineEvent;
+  index: number;
+  isActive: boolean;
+  onInView?: (id: string) => void;
+  isDashboard?: boolean;
+}) {
   const isLeft = index % 2 === 0;
 
   return (
-    <div ref={ref} className={`relative flex items-center gap-6 lg:gap-0 ${isLeft ? "lg:flex-row" : "lg:flex-row-reverse"}`}>
-      {/* Card */}
+    <div 
+      className={`relative flex items-center gap-6 lg:gap-0 ${
+        isDashboard 
+          ? "lg:flex-row-reverse" 
+          : isLeft 
+            ? "lg:flex-row" 
+            : "lg:flex-row-reverse"
+      }`}
+    >
+      {/* Card Content wrapper */}
       <motion.div
-        initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-        className="w-full lg:w-[calc(50%-3rem)] group"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        onViewportEnter={() => onInView?.(event.id)}
+        transition={{ duration: 0.6 }}
+        className={`w-full ${isDashboard ? "lg:w-full" : "lg:w-[calc(50%-3.5rem)]"} group`}
       >
-        <div className="relative bg-[#131A0F]/80 backdrop-blur-sm border border-[#3E512B]/40 rounded-2xl p-6 hover:border-[#C49F47]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(196,159,71,0.1)]">
-          {/* Color accent top */}
+        <div 
+          className={`relative rounded-2xl p-6 transition-all duration-500 border ${
+            isActive
+              ? "bg-[#0E140B] border-[#C49F47] shadow-[0_0_30px_rgba(196,159,71,0.12)]"
+              : "bg-[#0E140B]/60 border-[#324322]/40 hover:border-[#C49F47]/30 hover:bg-[#0E140B]/85"
+          }`}
+          id={`timeline-card-${event.id}`}
+        >
+          {/* Top border color strip */}
           <div
-            className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
+            className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
             style={{ background: event.color }}
           />
 
-          {/* Year badge */}
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold mb-4"
-            style={{ background: `${event.color}20`, color: event.color, border: `1px solid ${event.color}40` }}
-          >
-            <span>{event.icon}</span>
-            <span>{event.year}</span>
+          {/* Year and Badge */}
+          <div className="flex items-center justify-between mb-4">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold font-mono"
+              style={{
+                background: `${event.color}15`,
+                color: event.color,
+                border: `1px solid ${event.color}35`,
+              }}
+            >
+              <span>{event.icon}</span>
+              <span>{event.year}</span>
+            </div>
+            {isActive && (
+              <span className="text-[9px] uppercase font-bold tracking-widest text-[#C49F47] animate-pulse">
+                Active on Map
+              </span>
+            )}
           </div>
 
-          <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#F2F4F0] transition-colors">
+          {/* Title */}
+          <h3 className="text-lg font-serif font-bold text-white mb-2 group-hover:text-[#C49F47] transition-colors">
             {event.title}
           </h3>
-          <p className="text-sm text-gray-400 leading-relaxed mb-4">{event.description}</p>
+          
+          {/* Description */}
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed mb-4">
+            {event.description}
+          </p>
 
-          <div className="space-y-2 pt-4 border-t border-[#3E512B]/30">
+          {/* Info footer details */}
+          <div className="space-y-2 pt-4 border-t border-[#324322]/40 text-xs">
             <div className="flex items-start gap-2">
-              <span className="text-xs font-semibold text-[#C49F47] uppercase tracking-wide shrink-0">Outcome:</span>
-              <span className="text-xs text-gray-300">{event.outcome}</span>
+              <span className="font-bold text-[#C49F47] uppercase tracking-wide shrink-0">Resolution:</span>
+              <span className="text-gray-300">{event.outcome}</span>
             </div>
             {event.casualtiesIndia && (
               <div className="flex items-start gap-2">
-                <span className="text-xs font-semibold text-[#FF9933] uppercase tracking-wide shrink-0">Martyred:</span>
-                <span className="text-xs text-gray-300">{event.casualtiesIndia}</span>
+                <span className="font-bold text-orange-500 uppercase tracking-wide shrink-0">Sacrifice:</span>
+                <span className="text-gray-300 font-medium">{event.casualtiesIndia}</span>
               </div>
             )}
           </div>
         </div>
       </motion.div>
 
-      {/* Center dot */}
-      <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 flex-col items-center z-10">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="relative"
-        >
-          <div
-            className="w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-lg border-2"
-            style={{
-              background: `${event.color}20`,
-              borderColor: event.color,
-              boxShadow: `0 0 20px ${event.color}40`,
-            }}
+      {/* Central node on desktop */}
+      {!isDashboard && (
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 flex-col items-center z-10">
+          <motion.div
+            className="relative"
+            animate={{ scale: isActive ? 1.15 : 1 }}
           >
-            {event.icon}
-          </div>
-          <div
-            className="absolute inset-0 rounded-full animate-ping opacity-20"
-            style={{ background: event.color }}
-          />
-        </motion.div>
-      </div>
+            <div
+              className={`w-11 h-11 rounded-full flex items-center justify-center text-md shadow-lg border-2 transition-all ${
+                isActive 
+                  ? "bg-[#0E140B] border-[#C49F47] scale-110" 
+                  : "bg-[#0E140B] border-[#324322]"
+              }`}
+              style={{
+                boxShadow: isActive ? `0 0 20px ${event.color}50` : "none",
+              }}
+            >
+              {event.icon}
+            </div>
+            {isActive && (
+              <div
+                className="absolute inset-0 rounded-full animate-ping opacity-25"
+                style={{ background: event.color }}
+              />
+            )}
+          </motion.div>
+        </div>
+      )}
 
-      {/* Spacer for opposite side */}
-      <div className="hidden lg:block w-[calc(50%-3rem)]" />
+      {/* Spacing spacer */}
+      {!isDashboard && <div className="hidden lg:block w-[calc(50%-3.5rem)]" />}
     </div>
   );
 }
 
-export default function HistoricalTimeline() {
+export default function HistoricalTimeline({
+  activeBattleId = "",
+  onEventInView,
+  isDashboard = false,
+}: HistoricalTimelineProps) {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0B1006] via-[#0D1509] to-[#0B1006]" />
+    <section className={`relative overflow-hidden ${isDashboard ? "py-4" : "py-24 px-4 sm:px-6 lg:px-8"}`}>
+      {!isDashboard && (
+        <>
+          {/* Ambient section backgrounds */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#070B04] via-[#0E140B] to-[#070B04]" />
+          <div className="absolute inset-0 bg-dot-olive opacity-20 pointer-events-none" />
+        </>
+      )}
 
-      <div className="relative max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-20"
-        >
-          <span className="inline-block text-xs font-bold text-[#C49F47] uppercase tracking-[0.3em] mb-4">
-            Glorious History
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-            India&apos;s
-            <span className="bg-gradient-to-r from-[#FF9933] via-[#C49F47] to-[#138808] bg-clip-text text-transparent">
-              {" "}Wars & Conflicts
+      <div className="relative max-w-6xl mx-auto z-10">
+        
+        {/* Section Header */}
+        {!isDashboard && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <span className="inline-block text-xs font-bold text-[#C49F47] uppercase tracking-[0.25em] mb-4">
+              Glorious History
             </span>
-          </h2>
-          <p className="max-w-2xl mx-auto text-gray-400 text-base">
-            From the plains of Kashmir to the heights of Kargil — a chronicle of courage, sacrifice, and victory.
-          </p>
-        </motion.div>
+            <h2 className="text-4xl lg:text-5xl font-serif font-black text-white mb-4 uppercase tracking-wider">
+              India&apos;s
+              <span className="text-tricolor-gradient">
+                {" "}Wars & Conflicts
+              </span>
+            </h2>
+            <div className="h-[2px] w-24 bg-gradient-to-r from-transparent via-[#C49F47]/50 to-transparent mx-auto mb-6" />
+            <p className="max-w-2xl mx-auto text-sm text-gray-400 leading-relaxed">
+              From the plains of Kashmir to the frozen peaks of Siachen and the heights of Kargil — a timeline of courage, sacrifice, and ultimate victory.
+            </p>
+          </motion.div>
+        )}
 
-        {/* Timeline */}
+        {/* Timeline Line & Grid container */}
         <div className="relative space-y-12 lg:space-y-16">
-          {/* Center vertical line */}
-          <div className="hidden lg:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-[#3E512B] to-transparent" />
+          
+          {/* Central vertical line on full view */}
+          {!isDashboard && (
+            <div className="hidden lg:block absolute left-1/2 -translate-x-[1px] top-4 bottom-4 w-[2px] bg-gradient-to-b from-transparent via-[#324322] to-transparent" />
+          )}
 
-          {wars.map((war, i) => (
-            <TimelineCard key={war.year + war.title} event={war} index={i} />
+          {WARS.map((war, i) => (
+            <TimelineCard
+              key={war.id}
+              event={war}
+              index={i}
+              isActive={activeBattleId === war.id}
+              onInView={onEventInView}
+              isDashboard={isDashboard}
+            />
           ))}
         </div>
       </div>
