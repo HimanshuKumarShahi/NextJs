@@ -44,8 +44,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                   <a
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white transition-all duration-150"
-                    style={{ hover: { background: "rgba(62,81,43,0.3)" } }}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-[#324322]/30 transition-all duration-150"
                   >
                     <span>{item.icon}</span>
                     {item.label}
