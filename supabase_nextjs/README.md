@@ -425,5 +425,5 @@ supabase_nextjs/
 ---
 
 <div align="center">
-Built with ❤️ for sneaker enthusiasts. Powered by Next.js & Supabase.
+Built with ❤️ for sneaker enthusiasts. Powered by Next.js & Supabase. with the help of agent and ai
 </div>
