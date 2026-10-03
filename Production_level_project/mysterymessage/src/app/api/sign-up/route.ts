@@ -21,23 +21,23 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Generate a 6-digit verification code and set expiration (1 hour)
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+
     const expiryDate = new Date(Date.now() + 3600000);
 
-    // 3. Check if a user with this email already exists
     const existingUserByEmail = await UserModel.findOne({ email });
 
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
-        // Email exists and is already verified
         return Response.json(
           { success: false, message: "User already exists with this email." },
           { status: 400 },
         );
       } else {
         // Email exists but is NOT verified (maybe their previous code expired)
+
         // Update their details with the new password and new verification code
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         existingUserByEmail.password = hashedPassword;
