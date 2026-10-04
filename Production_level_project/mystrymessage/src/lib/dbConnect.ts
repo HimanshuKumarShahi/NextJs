@@ -12,6 +12,10 @@ async function dbConnect(): Promise<void> {
     return;
   }
 
+  if (!process.env.MONGODB_URI) {
+    throw new Error("CRITICAL: MONGODB_URI environment variable is missing.");
+  }
+
   try {
     const db = await mongoose.connect(process.env.MONGODB_URI || "", {});
 
