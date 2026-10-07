@@ -30,7 +30,7 @@ export default function SignUpPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [debouncedUsername] = useDebounceValue(username, 500);
+  const [debouncedUsername] = useDebounceValue(username, 300);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof signUpSchema>>({
