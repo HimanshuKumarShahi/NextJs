@@ -13,10 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { signInSchema } from "@/schemas/signInSchema";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function SignInPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -103,13 +105,36 @@ export default function SignInPage() {
                 <FieldLabel className="text-sm font-medium text-zinc-300 ml-1">
                   Password
                 </FieldLabel>
-                <Input
-                  {...field}
-                  type="password"
-                  autoComplete="current-password"
-                  placeholder="••••••••"
-                  className="h-12 bg-zinc-950/80 border-zinc-800 text-zinc-100 rounded-xl px-4 focus-visible:ring-2 focus-visible:ring-orange-500/50 focus-visible:border-orange-500 transition-all duration-300 placeholder:text-zinc-600"
-                />
+
+                {/* Wrapper for relative positioning */}
+                <div className="relative">
+                  <Input
+                    {...field}
+                    // Toggle input type based on state
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    placeholder="••••••••"
+                    // Added pr-11 so the text doesn't overlap the icon
+                    className="h-12 bg-zinc-950/80 border-zinc-800 text-zinc-100 rounded-xl px-4 pr-11 focus-visible:ring-2 focus-visible:ring-orange-500/50 focus-visible:border-orange-500 transition-all duration-300 placeholder:text-zinc-600"
+                  />
+
+                  {/* Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-orange-500 transition-colors focus:outline-none"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+
                 {fieldState.invalid && (
                   <FieldError
                     errors={[fieldState.error]}
