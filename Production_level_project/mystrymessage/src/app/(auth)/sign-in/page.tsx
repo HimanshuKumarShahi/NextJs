@@ -9,11 +9,10 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
-import { signInSchema } from "@/schemas/signInSchema"; 
+import { signInSchema } from "@/schemas/signInSchema";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -29,7 +28,7 @@ export default function SignInPage() {
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     setIsSubmitting(true);
-    
+
     try {
       const result = await signIn("credentials", {
         redirect: false,
@@ -58,12 +57,10 @@ export default function SignInPage() {
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-black overflow-hidden px-4">
-
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-orange-600/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-amber-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative w-full max-w-md p-8 sm:p-10 space-y-8 bg-zinc-900/40 backdrop-blur-2xl rounded-3xl border border-zinc-800/80 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
-        
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl bg-gradient-to-br from-white via-orange-100 to-orange-500 bg-clip-text text-transparent pb-1">
             Welcome Back To Mystry Message.
@@ -74,13 +71,14 @@ export default function SignInPage() {
         </div>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-          
           <Controller
             name="identifier"
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid} className="space-y-1.5">
-                <FieldLabel className="text-sm font-medium text-zinc-300 ml-1">Email or Username</FieldLabel>
+                <FieldLabel className="text-sm font-medium text-zinc-300 ml-1">
+                  Email or Username
+                </FieldLabel>
                 <Input
                   {...field}
                   autoComplete="username"
@@ -88,7 +86,10 @@ export default function SignInPage() {
                   className="h-12 bg-zinc-950/80 border-zinc-800 text-zinc-100 rounded-xl px-4 focus-visible:ring-2 focus-visible:ring-orange-500/50 focus-visible:border-orange-500 transition-all duration-300 placeholder:text-zinc-600"
                 />
                 {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} className="text-red-500 text-xs font-medium ml-1 mt-1" />
+                  <FieldError
+                    errors={[fieldState.error]}
+                    className="text-red-500 text-xs font-medium ml-1 mt-1"
+                  />
                 )}
               </Field>
             )}
@@ -99,7 +100,9 @@ export default function SignInPage() {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid} className="space-y-1.5">
-                <FieldLabel className="text-sm font-medium text-zinc-300 ml-1">Password</FieldLabel>
+                <FieldLabel className="text-sm font-medium text-zinc-300 ml-1">
+                  Password
+                </FieldLabel>
                 <Input
                   {...field}
                   type="password"
@@ -108,7 +111,10 @@ export default function SignInPage() {
                   className="h-12 bg-zinc-950/80 border-zinc-800 text-zinc-100 rounded-xl px-4 focus-visible:ring-2 focus-visible:ring-orange-500/50 focus-visible:border-orange-500 transition-all duration-300 placeholder:text-zinc-600"
                 />
                 {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} className="text-red-500 text-xs font-medium ml-1 mt-1" />
+                  <FieldError
+                    errors={[fieldState.error]}
+                    className="text-red-500 text-xs font-medium ml-1 mt-1"
+                  />
                 )}
               </Field>
             )}
