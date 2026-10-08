@@ -4,6 +4,7 @@ import './globals.css'
 import AuthProvider from "@/context/AuthProvider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import Navbar from "@/components/navbar/navbar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <AuthProvider>
         <body className="min-h-full flex flex-col">
+          <Navbar/>
           {children}
           <Toaster />
         </body>
