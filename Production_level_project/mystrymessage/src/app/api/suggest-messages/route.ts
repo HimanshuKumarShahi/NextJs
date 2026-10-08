@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+import { NextResponse } from "next/server";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -8,19 +9,27 @@ export async function POST(request: Request) {
   await dbConnect();
 
   try {
-    const { username } = await request.json();
+    const body = await request.json().catch(() => ({}));
+    const username = body.username;
+
+    if (!username) {
+      return NextResponse.json(
+        { success: false, message: "Username is required" },
+        { status: 400 },
+      );
+    }
 
     const user = await UserModel.findOne({ username });
 
     if (!user) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: "User not found" },
         { status: 404 },
       );
     }
 
     if (!user.isAcceptingMessage) {
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
           message: "This user is not accepting messages right now.",
@@ -41,12 +50,16 @@ export async function POST(request: Request) {
 
     const text = response.text;
 
-    return Response.json({ success: true, message: text }, { status: 200 });
+    return NextResponse.json({ success: true, message: text }, { status: 200 });
   } catch (error) {
-    console.error("Error generating personalized messages:", error);
-    return Response.json(
-      { success: false, message: "Failed to generate message suggestions." },
-      { status: 500 },
+    console.error("Gemini AI Error:", error);
+
+    const fallbackMessages =
+      "If you could travel anywhere tomorrow, where would it be?||What is a hidden talent you have?||What's the best advice you've ever received?";
+
+    return NextResponse.json(
+      { success: true, message: fallbackMessages },
+      { status: 200 },
     );
   }
 }
