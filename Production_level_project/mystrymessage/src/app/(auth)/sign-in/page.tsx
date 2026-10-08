@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { signInSchema } from "@/schemas/signInSchema";
 import { Eye, EyeOff } from "lucide-react";
+import { error } from "console";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -106,19 +107,15 @@ export default function SignInPage() {
                   Password
                 </FieldLabel>
 
-                {/* Wrapper for relative positioning */}
                 <div className="relative">
                   <Input
                     {...field}
-                    // Toggle input type based on state
                     type={showPassword ? "text" : "password"}
                     autoComplete="current-password"
                     placeholder="••••••••"
-                    // Added pr-11 so the text doesn't overlap the icon
                     className="h-12 bg-zinc-950/80 border-zinc-800 text-zinc-100 rounded-xl px-4 pr-11 focus-visible:ring-2 focus-visible:ring-orange-500/50 focus-visible:border-orange-500 transition-all duration-300 placeholder:text-zinc-600"
                   />
 
-                  {/* Toggle Button */}
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
