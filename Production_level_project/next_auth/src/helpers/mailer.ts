@@ -18,11 +18,10 @@ export const sendEmail = async ({ email, emailType, userId }: EmailParams) => {
         verifyTokenExpiry: Date.now() + 3600000,
       });
     } else if (emailType === "RESET") {
-      await User.findByIdAndUpdate(
-        userId,
-        { forgotPasswordToken: hashedToken },
-        { forgotPasswordTokenExpiry: Date.now() + 3600000 },
-      );
+      await User.findByIdAndUpdate(userId, {
+        forgotPasswordToken: hashedToken,
+        forgotPasswordTokenExpiry: Date.now() + 3600000,
+      });
     }
 
     const transporter = nodemailer.createTransport({
