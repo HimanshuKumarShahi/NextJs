@@ -20,7 +20,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("User Exist ", user);
+    if (!user.isVerified) {
+      return NextResponse.json(
+        { error: "Please verify your email before logging in." },
+        { status: 403 },
+      );
+    }
 
     const validPassword = await bcryptjs.compare(password, user.password);
 
@@ -51,7 +56,6 @@ export async function POST(request: NextRequest) {
     });
 
     return response;
-
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

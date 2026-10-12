@@ -7,9 +7,7 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    console.log(reqBody);
     const { token } = reqBody;
-    console.log(token);
 
     const user = await User.findOne({
       verifyToken: token,
@@ -22,8 +20,6 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-
-    console.log(user);
 
     user.isVerified = true;
     user.verifyToken = undefined;
