@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -159,6 +160,23 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
+
+      <div className="group border border-white/5 bg-[#11130f] p-6 rounded-lg transition hover:border-lime-300/30 flex flex-col justify-between">
+        <div>
+          <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-white/35">
+            04 / Security
+          </p>
+          <p className="text-sm text-white/45 mt-2">
+            Update your credentials and secure your account.
+          </p>
+        </div>
+        <Link
+          href="/forgot-password"
+          className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-lime-300 hover:text-lime-200 transition-colors"
+        >
+          Reset Password <span>↗</span>
+        </Link>
+      </div>
 
       <footer className="absolute bottom-0 w-full border-t border-white/5">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-6 sm:px-10 lg:px-16">
