@@ -293,6 +293,15 @@ export default function LoginPage() {
             </button>
           </form>
 
+          <div className="flex flex-col gap-2 mt-2 text-center">
+            <Link href="/forgot-password" className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-neutral-400">
+              Forgot your password?
+            </Link>
+            <Link href="/signup" className="text-sm text-gray-500 hover:underline">
+              Don't have an account? Sign up
+            </Link>
+          </div>
+
           <div className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-neutral-400">
             Don't have an account?{" "}
             <Link
