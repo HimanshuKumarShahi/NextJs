@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast, Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface SignupData {
   username: string;
@@ -16,9 +16,9 @@ export default function SignupPage() {
   const router = useRouter();
 
   const [user, setUser] = useState<SignupData>({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -27,13 +27,11 @@ export default function SignupPage() {
 
   useEffect(() => {
     setButtonDisabled(
-      !user.username.trim() ||
-        !user.email.trim() ||
-        !user.password.trim()
+      !user.username.trim() || !user.email.trim() || !user.password.trim(),
     );
   }, [user]);
 
-  const onSignup = async (e:any) => {
+  const onSignup = async (e: any) => {
     e.preventDefault();
 
     if (buttonDisabled || loading) {
@@ -43,47 +41,38 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/users/signup', {
+      const response = await axios.post("/api/users/signup", {
         username: user.username.trim(),
         email: user.email.trim(),
         password: user.password,
       });
 
+      toast.success(response.data?.message || "User registered successfully!", {
+        style: {
+          background: "#141414",
+          color: "#BEF264",
+          border: "1px solid #3f6212",
+        },
+      });
 
-      toast.success(
-        response.data?.message || 'User registered successfully!',
-        {
-          duration: 1500,
-          style: {
-            background: '#141414',
-            color: '#BEF264',
-            border: '1px solid #3f6212',
-          },
-        }
-      );
-
-      setTimeout(() => {
-        router.push('/login');
-      }, 1800);
-
-    } catch (error: unknown) {
-      let errorMessage = 'Signup failed. Please try again.';
+      router.push("/login");
+    } catch (error: any) {
+      let errorMessage = "Signup failed. Please try again.";
 
       if (axios.isAxiosError(error)) {
         errorMessage =
           error.response?.data?.error ||
           error.response?.data?.message ||
           (!error.response
-            ? 'Unable to connect to the server. Please try again.'
+            ? "Unable to connect to the server. Please try again."
             : errorMessage);
       }
 
       toast.error(errorMessage, {
-        duration: 2500,
         style: {
-          background: '#141414',
-          color: '#fca5a5',
-          border: '1px solid #7f1d1d',
+          background: "#141414",
+          color: "#fca5a5",
+          border: "1px solid #7f1d1d",
         },
       });
     } finally {
@@ -98,14 +87,13 @@ export default function SignupPage() {
         reverseOrder={false}
         gutter={12}
         toastOptions={{
-          duration: 3000,
           style: {
-            background: '#141414',
-            color: '#ffffff',
-            border: '1px solid #292929',
-            padding: '14px 18px',
-            borderRadius: '12px',
-            fontSize: '14px',
+            background: "#141414",
+            color: "#ffffff",
+            border: "1px solid #292929",
+            padding: "14px 18px",
+            borderRadius: "12px",
+            fontSize: "14px",
           },
         }}
       />
@@ -115,16 +103,14 @@ export default function SignupPage() {
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lime-300 text-lg font-black text-black">
             N
           </div>
-          <span className="text-xl font-bold tracking-[0.18em]">
-            NEXORA
-          </span>
+          <span className="text-xl font-bold tracking-[0.18em]">NEXORA</span>
         </Link>
 
         <Link
           href="/login"
           className="text-sm text-neutral-400 transition hover:text-lime-300"
         >
-          Already have an account?{' '}
+          Already have an account?{" "}
           <span className="font-semibold text-lime-300">Log in</span>
         </Link>
       </header>
@@ -147,8 +133,8 @@ export default function SignupPage() {
             </h1>
 
             <p className="mt-6 max-w-md text-base leading-7 text-neutral-400">
-              Create your account and step into a more focused,
-              connected, and creative digital experience.
+              Create your account and step into a more focused, connected, and
+              creative digital experience.
             </p>
           </div>
 
@@ -197,10 +183,7 @@ export default function SignupPage() {
                 strokeOpacity="0.35"
               />
               <circle cx="250" cy="110" r="35" fill="#BEF264" />
-              <path
-                d="M238 91V129L270 110L238 91Z"
-                fill="#090a09"
-              />
+              <path d="M238 91V129L270 110L238 91Z" fill="#090a09" />
             </svg>
 
             <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-5 text-xs uppercase tracking-[0.2em] text-neutral-500">
@@ -209,7 +192,6 @@ export default function SignupPage() {
             </div>
           </div>
         </div>
-
 
         <div className="mx-auto w-full max-w-md">
           <div className="mb-8">
@@ -242,9 +224,7 @@ export default function SignupPage() {
                 autoComplete="username"
                 placeholder="Enter your username"
                 value={user.username}
-                onChange={(e) =>
-                  setUser({ ...user, username: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, username: e.target.value })}
                 required
                 disabled={loading}
                 className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm outline-none transition placeholder:text-neutral-600 focus:border-lime-300/70 focus:ring-2 focus:ring-lime-300/10 disabled:opacity-50"
@@ -266,9 +246,7 @@ export default function SignupPage() {
                 autoComplete="email"
                 placeholder="you@example.com"
                 value={user.email}
-                onChange={(e) =>
-                  setUser({ ...user, email: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
                 required
                 disabled={loading}
                 className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm outline-none transition placeholder:text-neutral-600 focus:border-lime-300/70 focus:ring-2 focus:ring-lime-300/10 disabled:opacity-50"
@@ -287,7 +265,7 @@ export default function SignupPage() {
                 <input
                   id="password"
                   name="password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
                   placeholder="Create a strong password"
                   value={user.password}
@@ -305,7 +283,7 @@ export default function SignupPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-neutral-400 transition hover:text-lime-300"
                 >
-                  {showPassword ? 'Hide' : 'Show'}
+                  {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
 
@@ -325,18 +303,17 @@ export default function SignupPage() {
                   Creating account...
                 </>
               ) : (
-                'Create account'
+                "Create account"
               )}
             </button>
 
             <p className="text-center text-xs leading-5 text-neutral-500">
-              By creating an account, you agree to our terms and
-              privacy policy.
+              By creating an account, you agree to our terms and privacy policy.
             </p>
           </form>
 
           <div className="mt-8 text-center text-sm text-neutral-400">
-            Already registered?{' '}
+            Already registered?{" "}
             <Link
               href="/login"
               className="font-semibold text-lime-300 transition hover:text-lime-200"
