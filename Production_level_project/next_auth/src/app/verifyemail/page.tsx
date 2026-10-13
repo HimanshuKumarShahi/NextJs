@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import Link from "next/link";
+// import { useRouter } from "next/router";
 
 type VerificationStatus = "verifying" | "verified" | "error" | "missing";
 
 export default function VerifyEmail() {
+  // const router = useRouter()
   const [status, setStatus] = useState<VerificationStatus>("verifying");
 
   useEffect(() => {
@@ -16,6 +18,10 @@ export default function VerifyEmail() {
     const verifyUserEmail = async () => {
       const params = new URLSearchParams(window.location.search);
       const token = params.get("token");
+
+      //Next JS implementation
+      // const {query} = router
+      // const token = query.token
 
       if (!token) {
         if (active) setStatus("missing");
