@@ -18,10 +18,9 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "Invalid or expired reset token" },
-        { status: 400 }
+        { status: 400 },
       );
     }
-
 
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(newPassword, salt);
@@ -36,7 +35,6 @@ export async function POST(request: NextRequest) {
       message: "Password updated successfully",
       success: true,
     });
-    
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
