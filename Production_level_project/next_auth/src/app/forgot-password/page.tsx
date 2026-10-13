@@ -9,7 +9,7 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
 
-  const onResetRequest = async (e: React.FormEvent) => {
+  const onResetRequest = async (e:any) => {
     e.preventDefault();
     try {
       setLoading(true);
