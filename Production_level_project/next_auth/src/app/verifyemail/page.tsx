@@ -1,70 +1,60 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast, Toaster } from 'react-hot-toast';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import Link from "next/link";
 
-type VerificationStatus =
-  | 'verifying'
-  | 'verified'
-  | 'error'
-  | 'missing';
+type VerificationStatus = "verifying" | "verified" | "error" | "missing";
 
 export default function VerifyEmail() {
-  const [status, setStatus] =
-    useState<VerificationStatus>('verifying');
+  const [status, setStatus] = useState<VerificationStatus>("verifying");
 
   useEffect(() => {
     let active = true;
 
     const verifyUserEmail = async () => {
       const params = new URLSearchParams(window.location.search);
-      const token = params.get('token');
+      const token = params.get("token");
 
       if (!token) {
-        if (active) setStatus('missing');
+        if (active) setStatus("missing");
         return;
       }
 
       try {
-        const response = await axios.post(
-          '/api/users/verifyemail',
-          { token }
-        );
+        const response = await axios.post("/api/users/verifyemail", { token });
 
         if (!active) return;
 
-        setStatus('verified');
+        setStatus("verified");
 
         toast.success(
-          response.data?.message || 'Email verified successfully!',
+          response.data?.message || "Email verified successfully!",
           {
-            duration: 4000,
             style: {
-              background: '#141414',
-              color: '#BEF264',
-              border: '1px solid #3f6212',
+              background: "#141414",
+              color: "#BEF264",
+              border: "1px solid #3f6212",
             },
-          }
+          },
         );
       } catch (error: unknown) {
         if (!active) return;
 
-        setStatus('error');
+        setStatus("error");
 
         const message = axios.isAxiosError(error)
           ? error.response?.data?.error ||
             error.response?.data?.message ||
-            'Email verification failed. Your token may be invalid or expired.'
-          : 'Something went wrong. Please try again.';
+            "Email verification failed. Your token may be invalid or expired."
+          : "Something went wrong. Please try again.";
 
         toast.error(message, {
-          duration: 4000,
           style: {
-            background: '#141414',
-            color: '#fca5a5',
-            border: '1px solid #7f1d1d',
+            background: "#141414",
+            color: "#fca5a5",
+            border: "1px solid #7f1d1d",
           },
         });
       }
@@ -83,27 +73,23 @@ export default function VerifyEmail() {
         position="top-center"
         reverseOrder={false}
         toastOptions={{
-          duration: 3000,
           style: {
-            background: '#141414',
-            color: '#ffffff',
-            border: '1px solid #292929',
-            padding: '14px 18px',
-            borderRadius: '12px',
-            fontSize: '14px',
+            background: "#141414",
+            color: "#ffffff",
+            border: "1px solid #292929",
+            padding: "14px 18px",
+            borderRadius: "12px",
+            fontSize: "14px",
           },
         }}
       />
-
 
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lime-300 text-lg font-black text-black">
             N
           </div>
-          <span className="text-xl font-bold tracking-[0.18em]">
-            NEXORA
-          </span>
+          <span className="text-xl font-bold tracking-[0.18em]">NEXORA</span>
         </Link>
 
         <Link
@@ -114,9 +100,7 @@ export default function VerifyEmail() {
         </Link>
       </header>
 
-      
       <section className="mx-auto grid min-h-[calc(100vh-100px)] max-w-7xl items-center gap-12 px-6 py-10 sm:px-10 lg:grid-cols-2 lg:gap-20">
-
         <div className="relative hidden min-h-[540px] flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-[#10120f] p-10 lg:flex">
           <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-lime-300/10 blur-3xl" />
 
@@ -134,8 +118,8 @@ export default function VerifyEmail() {
             </h1>
 
             <p className="mt-6 max-w-md text-base leading-7 text-neutral-400">
-              Verify your email address to complete your registration
-              and unlock your NEXORA account.
+              Verify your email address to complete your registration and unlock
+              your NEXORA account.
             </p>
           </div>
 
@@ -220,14 +204,13 @@ export default function VerifyEmail() {
             </h2>
 
             <p className="mt-4 text-sm leading-6 text-neutral-400">
-              We are checking your verification link. This should
-              only take a moment.
+              We are checking your verification link. This should only take a
+              moment.
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-
-            {status === 'verifying' && (
+            {status === "verifying" && (
               <div
                 className="flex flex-col items-center py-8 text-center"
                 role="status"
@@ -247,8 +230,7 @@ export default function VerifyEmail() {
               </div>
             )}
 
-
-            {status === 'verified' && (
+            {status === "verified" && (
               <div
                 className="flex flex-col items-center py-6 text-center"
                 role="status"
@@ -276,8 +258,8 @@ export default function VerifyEmail() {
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-neutral-400">
-                  Your email address has been verified successfully.
-                  Your account is ready for you to sign in.
+                  Your email address has been verified successfully. Your
+                  account is ready for you to sign in.
                 </p>
 
                 <Link
@@ -292,8 +274,7 @@ export default function VerifyEmail() {
               </div>
             )}
 
-
-            {status === 'error' && (
+            {status === "error" && (
               <div
                 className="flex flex-col items-center py-6 text-center"
                 role="alert"
@@ -320,9 +301,9 @@ export default function VerifyEmail() {
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-neutral-400">
-                  Your verification link may be invalid or expired.
-                  Please sign in if your account is already verified,
-                  or register again to request a new link.
+                  Your verification link may be invalid or expired. Please sign
+                  in if your account is already verified, or register again to
+                  request a new link.
                 </p>
 
                 <Link
@@ -341,7 +322,7 @@ export default function VerifyEmail() {
               </div>
             )}
 
-            {status === 'missing' && (
+            {status === "missing" && (
               <div
                 className="flex flex-col items-center py-6 text-center"
                 role="alert"
@@ -355,8 +336,8 @@ export default function VerifyEmail() {
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-neutral-400">
-                  No verification token was found in this URL. Open
-                  the verification link sent to your email.
+                  No verification token was found in this URL. Open the
+                  verification link sent to your email.
                 </p>
 
                 <Link
@@ -370,7 +351,7 @@ export default function VerifyEmail() {
           </div>
 
           <p className="mt-6 text-center text-xs leading-5 text-neutral-500">
-            Need help? Return to the{' '}
+            Need help? Return to the{" "}
             <Link
               href="/login"
               className="text-lime-300 transition hover:text-lime-200"
