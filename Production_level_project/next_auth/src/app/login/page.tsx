@@ -41,7 +41,6 @@ export default function LoginPage() {
       });
 
       toast.success(response.data?.message || "Login successful!", {
-        duration: 2500,
         style: {
           background: "#141414",
           color: "#BEF264",
@@ -49,10 +48,8 @@ export default function LoginPage() {
         },
       });
 
-      setTimeout(() => {
-        router.push("/profile");
-      }, 1500);
-    } catch (error: unknown) {
+      router.push("/profile");
+    } catch (error: any) {
       let errorMessage = "Invalid email or password.";
 
       if (axios.isAxiosError(error)) {
@@ -65,7 +62,6 @@ export default function LoginPage() {
       }
 
       toast.error(errorMessage, {
-        duration: 4000,
         style: {
           background: "#141414",
           color: "#fca5a5",
@@ -83,7 +79,6 @@ export default function LoginPage() {
         position="top-center"
         reverseOrder={false}
         toastOptions={{
-          duration: 3000,
           style: {
             background: "#141414",
             color: "#ffffff",
@@ -294,10 +289,16 @@ export default function LoginPage() {
           </form>
 
           <div className="flex flex-col gap-2 mt-2 text-center">
-            <Link href="/forgot-password" className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-neutral-400">
+            <Link
+              href="/forgot-password"
+              className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-neutral-400"
+            >
               Forgot your password?
             </Link>
-            <Link href="/signup" className="text-sm text-gray-500 hover:underline">
+            <Link
+              href="/signup"
+              className="text-sm text-gray-500 hover:underline"
+            >
               Don't have an account? Sign up
             </Link>
           </div>
